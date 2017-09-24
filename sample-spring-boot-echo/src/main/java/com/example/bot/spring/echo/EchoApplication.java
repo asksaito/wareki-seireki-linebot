@@ -16,12 +16,11 @@
 
 package com.example.bot.spring.echo;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.example.bot.spring.echo.service.WarekiSeirekiConvertService;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
@@ -32,11 +31,8 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 @SpringBootApplication
 @LineMessageHandler
 public class EchoApplication {
-	private static final Map<Integer, String> SEIREKI_TO_WAREKI_MAP = new HashMap<>();
-	
-	static {
-		SEIREKI_TO_WAREKI_MAP.put(2017, "平成29");
-	}
+	@Autowired
+	WarekiSeirekiConvertService service;
 	
     public static void main(String[] args) {
         SpringApplication.run(EchoApplication.class, args);
@@ -46,33 +42,20 @@ public class EchoApplication {
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
         System.out.println("event: " + event);
         
-        String message = event.getMessage().getText();
-        String respMessage = message;
-        
-        if (isSeirekiText(message)) {
-        	int seireki = parseSeirekiText(message);
+        String respMessage = "";
+        try {
+        	String reqMessage = event.getMessage().getText();
         	
-        	respMessage = SEIREKI_TO_WAREKI_MAP.getOrDefault(seireki, "SORRY!! Not Found.");
+        	respMessage = service.execute(reqMessage);
+        }catch(Throwable t) {
+        	System.out.println(t.getMessage());
         }
         
-        return new TextMessage(respMessage + "年です。。");
+        return new TextMessage(respMessage + "年です。");
     }
 
     @EventMapping
     public void handleDefaultMessageEvent(Event event) {
         System.out.println("event: " + event);
-    }
-    
-    private boolean isSeirekiText(String message) {
-    	try {
-    		Integer.parseInt(message);
-    		return true;
-    	} catch(NumberFormatException e) {
-    		return false;
-    	}
-    }
-    
-    private int parseSeirekiText(String message) {
-    	return Integer.parseInt(message);
     }
 }
