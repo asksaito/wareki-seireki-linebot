@@ -58,3 +58,4 @@ local.properties
 # ADD
 *-SNAPSHOT.jar
 *-SNAPSHOT.jar.original
+*.class
