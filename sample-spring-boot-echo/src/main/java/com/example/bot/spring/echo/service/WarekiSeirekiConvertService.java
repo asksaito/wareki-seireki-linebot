@@ -58,7 +58,7 @@ public class WarekiSeirekiConvertService {
     			return true;
     		}
     	} catch(NumberFormatException e) {
-    		e.printStackTrace();
+    		//e.printStackTrace();
     	}
     	return false;
     }
@@ -72,19 +72,18 @@ public class WarekiSeirekiConvertService {
 		String result = null;
 		
 		if (!StringUtils.isEmpty(message)) {
-			//String regex = "(¥¥d+)";
-			String regex = "^([明治|大正|昭和|平成])([0-9]+).*";
+			String regex = "^(明治|大正|昭和|平成)(\\d+).*";
 			Pattern p = Pattern.compile(regex);
 			
 			System.out.println("[DEBUG] regexText = " + regex);
 			Matcher m = p.matcher(message);
 			if (m.matches()) {
-				System.out.println("[DEBUG] matches");
+				System.out.println("[DEBUG] matches!!");
 				
 				String matchstr = m.group();
-				System.out.println(matchstr + "の部分にマッチしました");
-				System.out.println("group1:" + m.group(1));
-				System.out.println("group2:" + m.group(2));
+				System.out.println("マッチ文字列 : " + matchstr);
+				System.out.println("元号 : " + m.group(1));
+				System.out.println("年  : " + m.group(2));
   
 				result = m.group(1) + m.group(2);
 			}
