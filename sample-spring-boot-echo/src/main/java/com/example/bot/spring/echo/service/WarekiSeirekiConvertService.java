@@ -68,7 +68,7 @@ public class WarekiSeirekiConvertService {
 		
 		if (!StringUtils.isEmpty(message)) {
 			//String regex = "(¥¥d+)";
-			String regex = "^[明治|大正|昭和|平成][0-9]+";
+			String regex = "^([明治|大正|昭和|平成])([0-9]+).*";
 			Pattern p = Pattern.compile(regex);
 			
 			Matcher m = p.matcher(message);
