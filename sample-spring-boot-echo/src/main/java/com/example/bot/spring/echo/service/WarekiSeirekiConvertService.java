@@ -78,14 +78,15 @@ public class WarekiSeirekiConvertService {
 			
 			System.out.println("[DEBUG] regexText = " + regex);
 			Matcher m = p.matcher(message);
-			if (m.find()){
-			  String matchstr = m.group();
-			  System.out.println(matchstr + "の部分にマッチしました");
-	
-			  System.out.println("group1:" + m.group(1));
-			  System.out.println("group2:" + m.group(2));
-			  
-			  result = m.group(1) + m.group(2);
+			if (m.matches()) {
+				System.out.println("[DEBUG] matches");
+				
+				String matchstr = m.group();
+				System.out.println(matchstr + "の部分にマッチしました");
+				System.out.println("group1:" + m.group(1));
+				System.out.println("group2:" + m.group(2));
+  
+				result = m.group(1) + m.group(2);
 			}
 		}
 		
