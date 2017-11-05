@@ -14,8 +14,10 @@ public class WarekiSeirekiConvertService {
 	private static final Map<Integer, String> SEIREKI_TO_WAREKI_MAP = new HashMap<>();
 	
 	static {
+		WAREKI_TO_SEIREKI_MAP.put("明治33", "1900");
 		WAREKI_TO_SEIREKI_MAP.put("平成29", "2017");
 		
+		SEIREKI_TO_WAREKI_MAP.put(1900, "明治33");
 		SEIREKI_TO_WAREKI_MAP.put(2017, "平成29");
 	}
 	
@@ -25,12 +27,12 @@ public class WarekiSeirekiConvertService {
 		if (isWarekiText(inputText)) { // 和暦入力か？
 			String wareki = parseWarekiText(inputText);
 			
-			outText = WAREKI_TO_SEIREKI_MAP.getOrDefault(wareki, "Not Found");
+			outText = WAREKI_TO_SEIREKI_MAP.getOrDefault(wareki, "？？");
 		}
 		else if (isSeirekiText(inputText)) { // 西暦入力か？
         	int seireki = parseSeirekiText(inputText);
         	
-        	outText = SEIREKI_TO_WAREKI_MAP.getOrDefault(seireki, "Not Found");
+        	outText = SEIREKI_TO_WAREKI_MAP.getOrDefault(seireki, "？？");
         }
 		
 		return outText;
@@ -51,7 +53,7 @@ public class WarekiSeirekiConvertService {
     			return true;
     		}
     	} catch(NumberFormatException e) {
-    		// Nothing to do...
+    		e.printStackTrace();
     	}
     	return false;
     }
@@ -65,7 +67,8 @@ public class WarekiSeirekiConvertService {
 		String result = null;
 		
 		if (!StringUtils.isEmpty(message)) {
-			String regex = "(¥¥d+)";
+			//String regex = "(¥¥d+)";
+			String regex = "^[明治|大正|昭和|平成][0-9]+";
 			Pattern p = Pattern.compile(regex);
 			
 			Matcher m = p.matcher(message);
@@ -83,6 +86,13 @@ public class WarekiSeirekiConvertService {
 		return result;
     }
 	
+	// 2017年
+	// 2018
+	/**
+	 * 
+	 * @param message
+	 * @return
+	 */
     private int parseSeirekiText(String message) {
     	return Integer.parseInt(message.trim().replaceAll("[^0-9]", ""));
     }
