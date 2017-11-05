@@ -22,20 +22,25 @@ public class WarekiSeirekiConvertService {
 	}
 	
 	public String execute(String inputText) {
-		String outText = "";
+		System.out.println("[DEBUG] inputText = " + inputText);
+		
+		String outputText = "";
 		
 		if (isWarekiText(inputText)) { // 和暦入力か？
 			String wareki = parseWarekiText(inputText);
+			System.out.println("[DEBUG] isWarekiText wareki = " + wareki);
 			
-			outText = WAREKI_TO_SEIREKI_MAP.getOrDefault(wareki, "？？");
+			outputText = WAREKI_TO_SEIREKI_MAP.getOrDefault(wareki, "？？");
 		}
 		else if (isSeirekiText(inputText)) { // 西暦入力か？
         	int seireki = parseSeirekiText(inputText);
+        	System.out.println("[DEBUG] isSeirekiText seireki = " + seireki);
         	
-        	outText = SEIREKI_TO_WAREKI_MAP.getOrDefault(seireki, "？？");
+        	outputText = SEIREKI_TO_WAREKI_MAP.getOrDefault(seireki, "？？");
         }
 		
-		return outText;
+		System.out.println("[DEBUG] outputText = " + outputText);
+		return outputText;
 	}
 	
 	private boolean isWarekiText(String inputText) {
@@ -71,6 +76,7 @@ public class WarekiSeirekiConvertService {
 			String regex = "^([明治|大正|昭和|平成])([0-9]+).*";
 			Pattern p = Pattern.compile(regex);
 			
+			System.out.println("[DEBUG] regexText = " + regex);
 			Matcher m = p.matcher(message);
 			if (m.find()){
 			  String matchstr = m.group();
