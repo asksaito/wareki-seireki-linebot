@@ -22,20 +22,25 @@ public class WarekiSeirekiConvertService {
 	}
 	
 	public String execute(String inputText) {
-		String outText = "";
+		System.out.println("[DEBUG] inputText = " + inputText);
+		
+		String outputText = "";
 		
 		if (isWarekiText(inputText)) { // 和暦入力か？
 			String wareki = parseWarekiText(inputText);
+			System.out.println("[DEBUG] isWarekiText wareki = " + wareki);
 			
-			outText = WAREKI_TO_SEIREKI_MAP.getOrDefault(wareki, "？？");
+			outputText = WAREKI_TO_SEIREKI_MAP.getOrDefault(wareki, "？？");
 		}
 		else if (isSeirekiText(inputText)) { // 西暦入力か？
         	int seireki = parseSeirekiText(inputText);
+        	System.out.println("[DEBUG] isSeirekiText seireki = " + seireki);
         	
-        	outText = SEIREKI_TO_WAREKI_MAP.getOrDefault(seireki, "？？");
+        	outputText = SEIREKI_TO_WAREKI_MAP.getOrDefault(seireki, "？？");
         }
 		
-		return outText;
+		System.out.println("[DEBUG] outputText = " + outputText);
+		return outputText;
 	}
 	
 	private boolean isWarekiText(String inputText) {
@@ -53,7 +58,7 @@ public class WarekiSeirekiConvertService {
     			return true;
     		}
     	} catch(NumberFormatException e) {
-    		e.printStackTrace();
+    		//e.printStackTrace();
     	}
     	return false;
     }
@@ -67,19 +72,20 @@ public class WarekiSeirekiConvertService {
 		String result = null;
 		
 		if (!StringUtils.isEmpty(message)) {
-			//String regex = "(¥¥d+)";
-			String regex = "^[明治|大正|昭和|平成][0-9]+";
+			String regex = "^(明治|大正|昭和|平成)(\\d+).*";
 			Pattern p = Pattern.compile(regex);
 			
+			System.out.println("[DEBUG] regexText = " + regex);
 			Matcher m = p.matcher(message);
-			if (m.find()){
-			  String matchstr = m.group();
-			  System.out.println(matchstr + "の部分にマッチしました");
-	
-			  System.out.println("group1:" + m.group(1));
-			  System.out.println("group2:" + m.group(2));
-			  
-			  result = m.group(1) + m.group(2);
+			if (m.matches()) {
+				System.out.println("[DEBUG] matches!!");
+				
+				String matchstr = m.group();
+				System.out.println("マッチ文字列 : " + matchstr);
+				System.out.println("元号 : " + m.group(1));
+				System.out.println("年  : " + m.group(2));
+  
+				result = m.group(1) + m.group(2);
 			}
 		}
 		
