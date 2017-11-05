@@ -19,6 +19,7 @@ package com.example.bot.spring.echo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.util.StringUtils;
 
 import com.example.bot.spring.echo.service.WarekiSeirekiConvertService;
 import com.linecorp.bot.model.event.Event;
@@ -51,7 +52,12 @@ public class EchoApplication {
         	System.out.println(t.getMessage());
         }
         
-        return new TextMessage(respMessage + "年です。");
+        if (StringUtils.isEmpty(respMessage)) {
+        	respMessage = "分かりません。";
+        } else {
+        	respMessage += "年";
+        }
+        return new TextMessage(respMessage);
     }
 
     @EventMapping
