@@ -53,7 +53,7 @@ public class EchoApplication {
         	// ユーザ入力テキスト
         	String reqMessage = event.getMessage().getText();
         	
-        	if (excludeMessages.contains(reqMessage)) {
+        	if (excludeMessages.contains(reqMessage.toLowerCase())) {
         		// 除外メッセージ
         		return null;
         	}
@@ -65,7 +65,7 @@ public class EchoApplication {
         } finally {
         	// レスポンステキスト作成
 	        if (StringUtils.isEmpty(respMessage)) {
-	        	respMessage = "分かりません（使い方はヘルプと話しかけて下さい）";
+	        	respMessage = "分かりません。\n（使い方はヘルプと話しかけて下さい）";
 	        } else {
 	        	respMessage += "年";
 	        }
