@@ -16,6 +16,9 @@
 
 package com.example.bot.spring.echo;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,8 +35,10 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 @SpringBootApplication
 @LineMessageHandler
 public class EchoApplication {
+	private static List<String> excludeMessages = Arrays.asList(new String[]{"ヘルプ", "へるぷ", "help"});
+	
 	@Autowired
-	WarekiSeirekiConvertService service;
+	private WarekiSeirekiConvertService service;
 	
     public static void main(String[] args) {
         SpringApplication.run(EchoApplication.class, args);
@@ -45,17 +50,25 @@ public class EchoApplication {
         
         String respMessage = "";
         try {
+        	// ユーザ入力テキスト
         	String reqMessage = event.getMessage().getText();
         	
-        	respMessage = service.execute(reqMessage);
-        }catch(Throwable t) {
-        	System.out.println(t.getMessage());
-        }
-        
-        if (StringUtils.isEmpty(respMessage)) {
-        	respMessage = "分かりません。";
-        } else {
-        	respMessage += "年";
+        	if (excludeMessages.contains(reqMessage)) {
+        		// 除外メッセージ
+        		return null;
+        	}
+        	
+        	// 西暦、和暦変換サービス実行
+    		respMessage = service.execute(reqMessage);
+        } catch(Throwable t) {
+        	t.printStackTrace();
+        } finally {
+        	// レスポンステキスト作成
+	        if (StringUtils.isEmpty(respMessage)) {
+	        	respMessage = "分かりません。（使い方はヘルプと話しかけて下さい）";
+	        } else {
+	        	respMessage += "年";
+	        }
         }
         return new TextMessage(respMessage);
     }
