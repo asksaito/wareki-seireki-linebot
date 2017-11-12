@@ -65,7 +65,7 @@ public class EchoApplication {
         } finally {
         	// レスポンステキスト作成
 	        if (StringUtils.isEmpty(respMessage)) {
-	        	respMessage = "分かりません。（使い方はヘルプと話しかけて下さい）";
+	        	respMessage = "分かりません（使い方はヘルプと話しかけて下さい）";
 	        } else {
 	        	respMessage += "年";
 	        }
