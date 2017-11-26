@@ -20,27 +20,31 @@ public class WarekiSeirekiConvertService {
 	private WarekiSeirekiRepository warekiSeirekiRepository;
 	
 	public String execute(String inputText) {
+		String outputText = "";
+		
 		System.out.println("[DEBUG] inputText = " + inputText);
+		inputText = StringUtils.trimWhitespace(inputText);
+		
 		if (currentYearText.contains(inputText.toLowerCase())) {
 			// 現在の年を取得
 			inputText = String.valueOf(LocalDateTime.now().getYear());
+			outputText += inputText + " / ";
 		}
 		
-		String outputText = "";
 		if (isWarekiText(inputText)) { // 和暦入力か？
 			Wareki wareki = parseWarekiText(inputText);
 			System.out.println("[DEBUG] isWarekiText warekiGengo = " + wareki.getGengo()
 					+ " / warekiYear = " + wareki.getYear());
 			
 			// 西暦に変換
-			outputText = warekiSeirekiRepository.findSeirekiText(wareki.getGengo(), wareki.getYear());
+			outputText += warekiSeirekiRepository.findSeirekiText(wareki.getGengo(), wareki.getYear());
 		}
 		else if (isSeirekiText(inputText)) { // 西暦入力か？
         	int seirekiYear = parseSeirekiText(inputText);
         	System.out.println("[DEBUG] isSeirekiText seirekiYear = " + seirekiYear);
         	
         	// 和暦に変換
-        	outputText = warekiSeirekiRepository.findWarekiText(seirekiYear);
+        	outputText += warekiSeirekiRepository.findWarekiText(seirekiYear);
         }
 		
 		System.out.println("[DEBUG] outputText = " + outputText);
