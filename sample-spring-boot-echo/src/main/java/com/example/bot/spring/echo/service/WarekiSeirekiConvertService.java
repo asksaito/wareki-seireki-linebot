@@ -77,7 +77,7 @@ public class WarekiSeirekiConvertService {
 		Wareki result = null;
 		
 		if (!StringUtils.isEmpty(message)) {
-			String regex = "^(明治|大正|昭和|平成)(\\d+).*";
+			String regex = "^(明治|大正|昭和|平成|令和)(\\d+).*";
 			Pattern p = Pattern.compile(regex);
 			
 			System.out.println("[DEBUG] regexText = " + regex);
