@@ -137,7 +137,16 @@ public class WarekiSeirekiMemRepository implements WarekiSeirekiRepository {
 		WAREKI_TO_SEIREKI_MAP.put("平成29", "2017");
 		WAREKI_TO_SEIREKI_MAP.put("平成30", "2018");
 		WAREKI_TO_SEIREKI_MAP.put("平成31", "2019");
-		WAREKI_TO_SEIREKI_MAP.put("平成32", "2020");
+		WAREKI_TO_SEIREKI_MAP.put("令和1", "2019");
+		WAREKI_TO_SEIREKI_MAP.put("令和2", "2020");
+		WAREKI_TO_SEIREKI_MAP.put("令和3", "2021");
+		WAREKI_TO_SEIREKI_MAP.put("令和4", "2022");
+		WAREKI_TO_SEIREKI_MAP.put("令和5", "2023");
+		WAREKI_TO_SEIREKI_MAP.put("令和6", "2024");
+		WAREKI_TO_SEIREKI_MAP.put("令和7", "2025");
+		WAREKI_TO_SEIREKI_MAP.put("令和8", "2026");
+		WAREKI_TO_SEIREKI_MAP.put("令和9", "2027");
+		WAREKI_TO_SEIREKI_MAP.put("令和10", "2028");
 		
 		SEIREKI_TO_WAREKI_MAP.put(1900, "明治33");
 		SEIREKI_TO_WAREKI_MAP.put(1901, "明治34");
@@ -258,8 +267,16 @@ public class WarekiSeirekiMemRepository implements WarekiSeirekiRepository {
 		SEIREKI_TO_WAREKI_MAP.put(2016, "平成28");
 		SEIREKI_TO_WAREKI_MAP.put(2017, "平成29");
 		SEIREKI_TO_WAREKI_MAP.put(2018, "平成30");
-		SEIREKI_TO_WAREKI_MAP.put(2019, "平成31");
-		SEIREKI_TO_WAREKI_MAP.put(2020, "平成32");
+		SEIREKI_TO_WAREKI_MAP.put(2019, "平成31/令和1");
+		SEIREKI_TO_WAREKI_MAP.put(2020, "令和2");
+		SEIREKI_TO_WAREKI_MAP.put(2021, "令和3");
+		SEIREKI_TO_WAREKI_MAP.put(2022, "令和4");
+		SEIREKI_TO_WAREKI_MAP.put(2023, "令和5");
+		SEIREKI_TO_WAREKI_MAP.put(2024, "令和6");
+		SEIREKI_TO_WAREKI_MAP.put(2025, "令和7");
+		SEIREKI_TO_WAREKI_MAP.put(2026, "令和8");
+		SEIREKI_TO_WAREKI_MAP.put(2027, "令和9");
+		SEIREKI_TO_WAREKI_MAP.put(2028, "令和10");
 	}
 	
 	@Override

@@ -30,6 +30,8 @@ public class WarekiSeirekiConvertServiceTest{
 		assertEquals("2017", service.execute("平成29年"));
 		assertEquals("2018", service.execute("平成30年"));
 		assertEquals("2019", service.execute("平成31年"));
+		assertEquals("2019", service.execute("令和1年"));
+		assertEquals("2028", service.execute("令和10年"));
 	}
 	
 	@Test
@@ -67,7 +69,8 @@ public class WarekiSeirekiConvertServiceTest{
 		assertEquals("平成28", service.execute("2016"));
 		assertEquals("平成29", service.execute("2017"));
 		assertEquals("平成30", service.execute("2018"));
-		assertEquals("平成31", service.execute("2019"));
+		assertEquals("平成31/令和1", service.execute("2019"));
+		assertEquals("令和10", service.execute("2028"));
 	}
 	
 	@Test
@@ -95,6 +98,8 @@ public class WarekiSeirekiConvertServiceTest{
 		assertEquals("2017", service.execute("\n平成29年　テスト"));
 		assertEquals("2018", service.execute(" 平成30年 "));
 		assertEquals("2019", service.execute("　平成31年　"));
+		assertEquals("2019", service.execute("　令和1年　"));
+		assertEquals("2028", service.execute("令和10"));
 		
 		assertEquals("明治33", service.execute("1900年"));
 		assertEquals("明治45/大正1", service.execute("1912 年"));
@@ -104,6 +109,7 @@ public class WarekiSeirekiConvertServiceTest{
 		assertEquals("平成27", service.execute("2015\n"));
 		assertEquals("平成28", service.execute("\r\n 2016 \r\n"));
 		assertEquals("平成29", service.execute(" \n 2017 \n "));
+		assertEquals("令和10", service.execute("2028年"));
 	}
 	
 //	@Test
